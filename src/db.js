@@ -1,6 +1,7 @@
 import mongo from 'mongodb';
 
 let connection_string = process.env.CONNECTION_STRING;
+console.log(connection_string)
 let client = new mongo.MongoClient(connection_string, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
