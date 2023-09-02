@@ -6,8 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 var _mongodb = _interopRequireDefault(require("mongodb"));
-var _dotenv = _interopRequireDefault(require("dotenv"));
-_dotenv["default"].config();
 var connection_string = process.env.CONNECTION_STRING;
 var client = new _mongodb["default"].MongoClient(connection_string, {
   useNewUrlParser: true,

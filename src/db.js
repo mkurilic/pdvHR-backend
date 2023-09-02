@@ -1,6 +1,4 @@
 import mongo from 'mongodb';
-import dotenv from 'dotenv';
-dotenv.config();
 
 let connection_string = process.env.CONNECTION_STRING;
 let client = new mongo.MongoClient(connection_string, {
