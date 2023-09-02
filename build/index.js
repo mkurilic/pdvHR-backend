@@ -9,9 +9,12 @@ var _db = _interopRequireDefault(require("./db.js"));
 var _mongodb = _interopRequireDefault(require("mongodb"));
 var _auth = _interopRequireDefault(require("./auth"));
 var app = (0, _express["default"])(); // instanciranje aplikacije
-var port = process.env.PORT; // port na kojem će web server slušati
+var port = process.env.PORT || 3000; // port na kojem će web server slušati
 
 app.use((0, _cors["default"])());
+app.use((0, _cors["default"])({
+  origin: 'http://localhost:8080/'
+}));
 app.use(_express["default"].json()); // automatski dekodiraj JSON poruke
 
 app.get('/tajna', [_auth["default"].verify], /*#__PURE__*/function () {
@@ -19,7 +22,6 @@ app.get('/tajna', [_auth["default"].verify], /*#__PURE__*/function () {
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          // nakon što se izvrši auth.verify middleware, imamo dostupan req.jwt objekt
           res.status(200).send('tajna korisnika ' + req.jwt.username);
         case 1:
         case "end":
