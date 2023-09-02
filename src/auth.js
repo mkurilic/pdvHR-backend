@@ -7,6 +7,12 @@ import jwt from 'jsonwebtoken';
 (async () => {
     let db = await connect();
     db.collection('users').createIndex({ username: 1 }, { unique: true });
+    db.collection('clients').createIndex({oib: 1}, {unique: true})
+    db.collection('suppliers').createIndex({clientId:1, oib:1, konto:1}, {unique:true})
+    db.collection('buyers').createIndex({clientId:1, oib:1, konto:1}, {unique:true})
+    db.collection('ura').createIndex({clientId:1, rbr:1}, {unique:true})
+    db.collection('ira').createIndex({clientId:1, rbr:1}, {unique:true})
+
 })();
 
 export default {
@@ -18,6 +24,7 @@ export default {
             let doc = {
                 username: userData.username,
                 password: await bcrypt.hash(userData.password, 8),
+                email: userData.email,
                 name: userData.name,
             };
 
@@ -60,7 +67,6 @@ export default {
                     return res.status(401).send(); // HTTP invalid requets
                 } else {
                     let token = authorization[1];
-                    // spremi uz upit, verify baca grešku(exception) ako ne uspije
                     req.jwt = jwt.verify(authorization[1], process.env.JWT_SECRET);
                     return next();
                 }
