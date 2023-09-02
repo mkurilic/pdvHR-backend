@@ -9,10 +9,6 @@ const port = process.env.PORT || 3000; // port na kojem će web server slušati
 
 app.use(cors());
 
-app.use(cors({
-    origin: 'http://localhost:8080/',
-  }));
-
 app.use(express.json()); // automatski dekodiraj JSON poruke
 
 app.get('/tajna', [auth.verify], async (req, res) => {
