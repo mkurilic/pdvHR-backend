@@ -5,14 +5,18 @@ import mongo from 'mongodb';
 import auth from './auth';
 
 const app = express(); // instanciranje aplikacije
-const port = process.env.PORT; // port na kojem će web server slušati
+const port = process.env.PORT || 3000; // port na kojem će web server slušati
 
 app.use(cors());
+
+app.use(cors({
+    origin: 'http://localhost:8080/',
+  }));
+
 app.use(express.json()); // automatski dekodiraj JSON poruke
 
 app.get('/tajna', [auth.verify], async (req, res) => {
-    // nakon što se izvrši auth.verify middleware, imamo dostupan req.jwt objekt
-    res.status(200).send('tajna korisnika ' + req.jwt.username);
+        res.status(200).send('tajna korisnika ' + req.jwt.username);
 });
 
 
